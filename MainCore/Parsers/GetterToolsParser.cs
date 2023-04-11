@@ -1,6 +1,6 @@
 ﻿using HtmlAgilityPack;
 
-namespace MainCore
+namespace MainCore.Parsers
 {
     public static class GetterToolsParser
     {

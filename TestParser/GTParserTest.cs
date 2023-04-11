@@ -1,5 +1,5 @@
 using HtmlAgilityPack;
-using MainCore;
+using MainCore.Parsers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace TestParser
