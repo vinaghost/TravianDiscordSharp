@@ -69,13 +69,19 @@ namespace WorldUpdator
             var newWorlds = getterToolsWorlds.ExceptBy(databaseWorlds.Select(x => x.Url), x => x.Url).ToList();
             var oldWorlds = databaseWorlds.ExceptBy(getterToolsWorlds.Select(x => x.Url), x => x.Url).ToList();
 
+            if (newWorlds.Count + oldWorlds.Count == 0) return;
             var client = MongoHelper.GetClient();
             var collection = client.GetDatabase("TravianWorldDatabase").GetCollection<World>("TravianOfficial");
 
-            await collection.InsertManyAsync(newWorlds);
-
-            var filter = Builders<World>.Filter.In("_id", oldWorlds.Select(x => x.Id));
-            await collection.DeleteManyAsync(filter);
+            if (newWorlds.Count > 0)
+            {
+                await collection.InsertManyAsync(newWorlds);
+            }
+            if (oldWorlds.Count > 0)
+            {
+                var filter = Builders<World>.Filter.In("_id", oldWorlds.Select(x => x.Id));
+                await collection.DeleteManyAsync(filter);
+            }
         }
     }
 }
