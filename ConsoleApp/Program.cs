@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-using MongoDB.Bson;
+﻿using MongoDB.Bson;
 using MongoDB.Driver;
 
 namespace ConsoleApp
@@ -8,10 +7,7 @@ namespace ConsoleApp
     {
         private static void Main(string[] args)
         {
-            var config = new ConfigurationBuilder().AddUserSecrets<Program>().Build();
-
-            var secretProvider = config.Providers.First();
-            secretProvider.TryGet("MongoDBConnectionString", out var connectionString);
+            var connectionString = Environment.GetEnvironmentVariable("MONGODB_URI");
 
             if (string.IsNullOrEmpty(connectionString))
             {
