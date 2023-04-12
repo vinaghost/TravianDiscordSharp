@@ -32,6 +32,6 @@ jobs:
       - name: Archive
         run: |
           tar czvf "WorldUpdator.tar.gz" "WorldUpdatorPublish"
-      - uses: ncipollo/release-action@v3
+      - uses: ncipollo/release-action@v1
         with:
           artifacts: "WorldUpdator.tar.gz"
