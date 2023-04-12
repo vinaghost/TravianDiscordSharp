@@ -15,7 +15,7 @@ jobs:
           latest: true
       - name: Extract
         run: |
-          tar -xvf archive.tar.xz
+          tar -xvf WorldUpdator.tar.xz
       - name: Run world updator
         run: |
           chmod +x ./WorldUpdator
