@@ -1,0 +1,32 @@
+name: Update database
+on:
+  push:
+    tags:
+    - '*'
+  workflow_dispatch:  
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses:  actions/checkout@v3
+      - name: Setup .NET Core SDK 6
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 6.0.x
+      - name: Load dependencies from cache
+        uses: actions/cache@v3
+        with:
+          path: ~/.nuget/packages
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-nuget-        
+      - name: Install dependencies
+        run: dotnet restore
+      - name: Build
+        run: dotnet build -c Release --no-restore
+      - name: Test 
+        run: dotnet test --no-restore
+      - name: Publish 
+        run: dotnet publish WorldUpdator -c Release -p:PublishSingleFile=true
+        
