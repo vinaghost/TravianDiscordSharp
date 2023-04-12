@@ -69,6 +69,9 @@ namespace WorldUpdator
             var newWorlds = getterToolsWorlds.ExceptBy(databaseWorlds.Select(x => x.Url), x => x.Url).ToList();
             var oldWorlds = databaseWorlds.ExceptBy(getterToolsWorlds.Select(x => x.Url), x => x.Url).ToList();
 
+            Console.WriteLine($"Found {getterToolsWorlds.Count} worlds.");
+            Console.WriteLine($"{newWorlds.Count} new worlds and {oldWorlds.Count} old worlds.");
+
             if (newWorlds.Count + oldWorlds.Count == 0) return;
             var client = MongoHelper.GetClient();
             var collection = client.GetDatabase("TravianWorldDatabase").GetCollection<World>("TravianOfficial");
