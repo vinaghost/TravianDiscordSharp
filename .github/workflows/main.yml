@@ -38,8 +38,9 @@ jobs:
     steps:
       - name: Download build
         uses: actions/download-artifact@v3
-      - name: Display structure of downloaded files
-        run: ls -R
+      - name: Run world updator
+        run: ./WorldUpdator
+        working-directory: /WorldUpdator
       
 
     
