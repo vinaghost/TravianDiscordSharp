@@ -1,9 +1,8 @@
-name: Update database
+name: Release
 on:
   push:
     tags:
     - '*'
-  workflow_dispatch:  
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -28,5 +27,11 @@ jobs:
       - name: Test 
         run: dotnet test --no-restore
       - name: Publish 
-        run: dotnet publish WorldUpdator -c Release -p:PublishSingleFile=true
-        
+        run: |
+          dotnet publish WorldUpdator -c Release --no-restore -p:PublishSingleFile=true -o WorldUpdator
+      - name: Archive
+        run: |
+          tar czvf "WorldUpdator.tar.gz" "WorldUpdator"
+      # - uses: ncipollo/release-action@v1
+      #   with:
+      #     artifacts: "WorldUpdator.tar.gz"
