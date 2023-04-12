@@ -6,45 +6,20 @@ on:
 env:
   MONGODB_URI: ${{ secrets.MONGODB_URI }}
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses:  actions/checkout@v3
-      - name: Setup .NET Core SDK 6
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: 6.0.x
-      - name: Load dependencies from cache
-        uses: actions/cache@v3
-        with:
-          path: ~/.nuget/packages
-          key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-nuget-        
-      - name: Install dependencies
-        run: dotnet restore
-      - name: Build
-        run: dotnet build -c Release --no-restore
-      - name: Test build
-        run: dotnet test --no-restore
-      - name: Upload build
-        uses: actions/upload-artifact@v3
-        with:
-          name: WorldUpdator
-          path: WorldUpdator/bin/Release/net6.0
-          if-no-files-found: error
   run-build:
-    needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Download build
-        uses: actions/download-artifact@v3
-      - name: Run world updator
-        run: |
-          chmod +x ./WorldUpdator
-          ./WorldUpdator
-        working-directory: WorldUpdator
+        uses: robinraju/release-downloader@v1.7
+        with:
+          latest: true
+      - name: Check
+        run: ls -R
+      # - name: Run world updator
+      #   run: |
+      #     chmod +x ./WorldUpdator
+      #     ./WorldUpdator
+      #   working-directory: WorldUpdator
       
 
     
