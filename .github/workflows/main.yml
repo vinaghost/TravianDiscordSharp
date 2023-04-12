@@ -13,15 +13,14 @@ jobs:
         uses: robinraju/release-downloader@v1.7
         with:
           latest: true
-      - name: Check
+      - name: Extract
         run: |
-          ls -R
-          tar -tf WorldUpdator.tar.gz
-      # - name: Run world updator
-      #   run: |
-      #     chmod +x ./WorldUpdator
-      #     ./WorldUpdator
-      #   working-directory: WorldUpdator
+          tar -xvf archive.tar.xz
+      - name: Run world updator
+        run: |
+          chmod +x ./WorldUpdator
+          ./WorldUpdator
+        working-directory: WorldUpdatorPublish
       
 
     
