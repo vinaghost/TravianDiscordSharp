@@ -14,7 +14,9 @@ jobs:
         with:
           latest: true
       - name: Check
-        run: ls -R
+        run: |
+          ls -R
+          tar -tf WorldUpdator.tar.gz
       # - name: Run world updator
       #   run: |
       #     chmod +x ./WorldUpdator
