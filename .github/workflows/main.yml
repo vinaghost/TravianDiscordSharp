@@ -26,15 +26,11 @@ jobs:
         run: dotnet build -c Release --no-restore
       - name: Test build
         run: dotnet test --no-restore
-      
-      - name: Display structure of downloaded files
-        run: ls -R
-        
       - name: Upload build
         uses: actions/upload-artifact@v3
         with:
           name: WorldUpdator
-          path: WorldUpdator/bin/Release/net.6.0
+          path: WorldUpdator/bin/Release/net6.0
           if-no-files-found: error
   run-build:
     needs: build
