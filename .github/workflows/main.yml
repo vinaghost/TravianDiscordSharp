@@ -39,7 +39,9 @@ jobs:
       - name: Download build
         uses: actions/download-artifact@v3
       - name: Run world updator
-        run: ./WorldUpdator
+        run: |
+          chmode +x ./WorldUpdator
+          ./WorldUpdator
         working-directory: WorldUpdator
       
 
