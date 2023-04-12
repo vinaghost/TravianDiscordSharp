@@ -1,4 +1,5 @@
 ﻿using HtmlAgilityPack;
+using System.Globalization;
 
 namespace MainCore.Parsers
 {
@@ -27,7 +28,8 @@ namespace MainCore.Parsers
 
         public static DateTime GetWorldStartDate(HtmlNode node)
         {
-            return node.GetAttributeValue("data-start", DateTime.MinValue);
+            var date = node.GetAttributeValue("data-start", "");
+            return DateTime.ParseExact(date, "d/M/yyyy", CultureInfo.InvariantCulture);
         }
     }
 }
