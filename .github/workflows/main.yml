@@ -40,7 +40,7 @@ jobs:
         uses: actions/download-artifact@v3
       - name: Run world updator
         run: |
-          chmode +x ./WorldUpdator
+          chmod +x ./WorldUpdator
           ./WorldUpdator
         working-directory: WorldUpdator
       
