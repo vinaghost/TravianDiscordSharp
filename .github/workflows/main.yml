@@ -40,7 +40,7 @@ jobs:
         uses: actions/download-artifact@v3
       - name: Run world updator
         run: ./WorldUpdator
-        working-directory: /WorldUpdator
+        working-directory: WorldUpdator
       
 
     
