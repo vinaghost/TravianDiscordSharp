@@ -4,7 +4,10 @@ on:
     - cron:  '00 10 * * *'
   workflow_dispatch:
 jobs:
-  test:
+  check-build:
+    runs-on: ubuntu-latest
+
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: checkout
@@ -24,5 +27,23 @@ jobs:
         run: dotnet restore
       - name: Build
         run: dotnet build -c Release --no-restore
-      - name: Test
+      - name: Test build
         run: dotnet test --no-restore
+      - name: Upload build
+        uses: actions/upload-artifact@v3
+        with:
+          name: WorldUpdator
+          path: WorldUpdator/bin/Release/net.6.0
+          if-no-files-found: error
+  run-build:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download build
+        uses: actions/download-artifact@v3
+      - name: Display structure of downloaded files
+        run: ls -R
+      
+
+    
+
