@@ -5,7 +5,6 @@
     <ImplicitUsings>enable</ImplicitUsings>
 
     <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
-    <RestoreLockedMode>true</RestoreLockedMode>
   </PropertyGroup>
 
   <ItemGroup>

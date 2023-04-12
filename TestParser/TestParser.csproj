@@ -8,7 +8,6 @@
     <IsTestProject>true</IsTestProject>
 
     <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
-    <RestoreLockedMode>true</RestoreLockedMode>
   </PropertyGroup>
 
   <ItemGroup>
