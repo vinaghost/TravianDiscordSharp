@@ -22,7 +22,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="HtmlFiles\GetterTools.html">
+    <None Update="Files\GetterTools.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Files\map.sql">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

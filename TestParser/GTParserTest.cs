@@ -12,7 +12,7 @@ namespace TestParser
         [ClassInitialize]
         public static void ClassInitialize(TestContext testContext)
         {
-            doc.Load(Path.Combine("HtmlFiles", "GetterTools.html"));
+            doc.Load(Path.Combine("Files", "GetterTools.html"));
         }
 
         [TestMethod]
