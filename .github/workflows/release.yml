@@ -31,9 +31,11 @@ jobs:
       - name: Publish 
         run: |
           dotnet publish WorldUpdator -c Release -p:PublishSingleFile=true -o WorldUpdatorPublish
+          dotnet publish VillageUpdator -c Release -p:PublishSingleFile=true -o VillagedUpdatorPublish
       - name: Archive
         run: |
           tar czvf "WorldUpdator.tar.gz" "WorldUpdatorPublish"
+          tar czvf "VillageUpdator.tar.gz" "VillagedUpdatorPublish"
       - uses: ncipollo/release-action@v1
         with:
-          artifacts: "WorldUpdator.tar.gz"
+          artifacts: "WorldUpdator.tar.gz,VillageUpdator.tar.gz"

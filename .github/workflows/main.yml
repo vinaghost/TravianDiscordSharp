@@ -16,11 +16,17 @@ jobs:
       - name: Extract
         run: |
           tar -xvf WorldUpdator.tar.gz
+          tar -xvf VillageUpdator.tar.gz
       - name: Run world updator
         run: |
           chmod +x ./WorldUpdator
           ./WorldUpdator
         working-directory: WorldUpdatorPublish
+      - name: Run village updator
+        run: |
+          chmod +x ./VillageUpdator
+          ./VillageUpdator
+        working-directory: VillagedUpdatorPublish
       
 
     
