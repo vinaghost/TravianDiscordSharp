@@ -10,8 +10,7 @@ namespace VillageUpdator
         private static async Task Main(string[] args)
         {
             var databaseWorlds = await GetWorldsFromDatabase();
-            var parallelOptions = new ParallelOptions { MaxDegreeOfParallelism = Environment.ProcessorCount - 2 };
-            await Parallel.ForEachAsync(databaseWorlds, parallelOptions, async (world, token) =>
+            await Parallel.ForEachAsync(databaseWorlds, async (world, token) =>
             {
                 var villageLines = await GetMapSql(world.Url);
                 if (villageLines is null) return;
