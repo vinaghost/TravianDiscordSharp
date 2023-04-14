@@ -55,10 +55,13 @@
             WorldLoadBtn.TabIndex = 1;
             WorldLoadBtn.Text = "Load world";
             WorldLoadBtn.UseVisualStyleBackColor = true;
+            WorldLoadBtn.Click += WorldLoadBtn_Click;
             // 
             // XNumeric
             // 
             XNumeric.Location = new Point(48, 111);
+            XNumeric.Maximum = new decimal(new int[] { 400, 0, 0, 0 });
+            XNumeric.Minimum = new decimal(new int[] { 400, 0, 0, int.MinValue });
             XNumeric.Name = "XNumeric";
             XNumeric.Size = new Size(95, 23);
             XNumeric.TabIndex = 2;
@@ -66,6 +69,8 @@
             // YNumeric
             // 
             YNumeric.Location = new Point(163, 111);
+            YNumeric.Maximum = new decimal(new int[] { 400, 0, 0, 0 });
+            YNumeric.Minimum = new decimal(new int[] { 400, 0, 0, int.MinValue });
             YNumeric.Name = "YNumeric";
             YNumeric.Size = new Size(95, 23);
             YNumeric.TabIndex = 3;
@@ -78,6 +83,7 @@
             ApplyBtn.TabIndex = 4;
             ApplyBtn.Text = "Apply";
             ApplyBtn.UseVisualStyleBackColor = true;
+            ApplyBtn.Click += ApplyBtn_Click;
             // 
             // DataGrid
             // 
@@ -101,6 +107,8 @@
             Controls.Add(WorldSelector);
             Name = "MainForm";
             Text = "Travian's village lookup";
+            FormClosing += MainForm_FormClosing;
+            Load += MainForm_Load;
             ((System.ComponentModel.ISupportInitialize)XNumeric).EndInit();
             ((System.ComponentModel.ISupportInitialize)YNumeric).EndInit();
             ((System.ComponentModel.ISupportInitialize)DataGrid).EndInit();
