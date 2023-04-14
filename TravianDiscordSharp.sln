@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestParser", "TestParser\Te
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorldUpdator", "WorldUpdator\WorldUpdator.csproj", "{9F9C60E9-537B-4E28-B5E8-B9A4C2026F6A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VillageUpdator", "VillageUpdator\VillageUpdator.csproj", "{F3EA59F9-5A7A-48F9-8071-2E23682ECF03}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VillageUpdator", "VillageUpdator\VillageUpdator.csproj", "{F3EA59F9-5A7A-48F9-8071-2E23682ECF03}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinformApp", "WinformApp\WinformApp.csproj", "{517B52CF-B425-435C-8482-8806F4A63E15}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{F3EA59F9-5A7A-48F9-8071-2E23682ECF03}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F3EA59F9-5A7A-48F9-8071-2E23682ECF03}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F3EA59F9-5A7A-48F9-8071-2E23682ECF03}.Release|Any CPU.Build.0 = Release|Any CPU
+		{517B52CF-B425-435C-8482-8806F4A63E15}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{517B52CF-B425-435C-8482-8806F4A63E15}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{517B52CF-B425-435C-8482-8806F4A63E15}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{517B52CF-B425-435C-8482-8806F4A63E15}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
