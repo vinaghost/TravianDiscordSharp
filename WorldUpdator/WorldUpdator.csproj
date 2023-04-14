@@ -4,10 +4,22 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
-
-    <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
   </PropertyGroup>
 
+  <Choose>
+    <When Condition="$(RuntimeIdentifier) != ''">
+      <PropertyGroup>
+        <NuGetLockFilePath>no.lock.file</NuGetLockFilePath>
+        <RestorePackagesWithLockFile>false</RestorePackagesWithLockFile>
+      </PropertyGroup>
+    </When>
+    <Otherwise>
+      <PropertyGroup>
+        <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+      </PropertyGroup>
+    </Otherwise>
+  </Choose>
+  
   <ItemGroup>
     <ProjectReference Include="..\MainCore\MainCore.csproj" />
   </ItemGroup>

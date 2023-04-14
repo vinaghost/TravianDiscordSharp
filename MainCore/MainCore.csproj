@@ -3,10 +3,20 @@
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
-
-    <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
   </PropertyGroup>
-
+  <Choose>
+    <When Condition="$(RuntimeIdentifier) != ''">
+      <PropertyGroup>
+        <NuGetLockFilePath>no.lock.file</NuGetLockFilePath>
+        <RestorePackagesWithLockFile>false</RestorePackagesWithLockFile>
+      </PropertyGroup>
+    </When>
+    <Otherwise>
+      <PropertyGroup>
+        <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+      </PropertyGroup>
+    </Otherwise>
+  </Choose>  
   <ItemGroup>
     <PackageReference Include="HtmlAgilityPack" Version="1.11.46" />
     <PackageReference Include="MongoDB.Driver" Version="2.19.1" />
