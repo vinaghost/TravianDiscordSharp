@@ -2,13 +2,12 @@
 {
     public class VillageLite : IComparable<VillageLite>
     {
-        public VillageLite(string villageName, string playerName, string allyName, int x, int y, int pop)
+        public VillageLite(string villageName, string playerName, string allyName, Coordinates coord, int pop)
         {
             VillageName = villageName;
             PlayerName = playerName;
             AllyName = allyName;
-            X = x;
-            Y = y;
+            Coord = coord;
             Pop = pop;
         }
 
@@ -16,8 +15,7 @@
 
         public string PlayerName { get; set; }
         public string AllyName { get; set; }
-        public int X { get; set; }
-        public int Y { get; set; }
+        public Coordinates Coord { get; set; }
         public int Pop { get; set; }
         public double Distance { get; set; }
 
