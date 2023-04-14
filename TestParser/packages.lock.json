@@ -1263,11 +1263,12 @@
         "resolved": "0.6.2",
         "contentHash": "jPao/LdUNLUz8rn3H1D8W7wQbZsRZM0iayvWI4xGejJg3XJHT56gcmYdgmCGPdJF1UEBqUjucCRrFB+4HbJsbw=="
       },
-      "maincore": {
+      "VillageUpdator": {
         "type": "Project",
         "dependencies": {
           "HtmlAgilityPack": "[1.11.46, )",
-          "MongoDB.Driver": "[2.19.1, )"
+          "MongoDB.Driver": "[2.19.1, )",
+          "VillageUpdator": "[1.0.0, )"
         }
       }
     }
