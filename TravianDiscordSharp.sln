@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33516.290
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleApp", "ConsoleApp\ConsoleApp.csproj", "{6C972F25-0DC5-44FD-830D-9BE5517D3616}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MainCore", "MainCore\MainCore.csproj", "{0DD01CE9-1BC6-4D65-950F-FAACC4F5FB8F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestParser", "TestParser\TestParser.csproj", "{E7DF7C2C-2365-4D23-B8E8-26397C9234E1}"
@@ -13,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorldUpdator", "WorldUpdato
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VillageUpdator", "VillageUpdator\VillageUpdator.csproj", "{F3EA59F9-5A7A-48F9-8071-2E23682ECF03}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinFormsApp", "WinFormsApp\WinFormsApp.csproj", "{C61C7426-8B49-4260-B740-41E2D09061D7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WinFormsApp", "WinFormsApp\WinFormsApp.csproj", "{C61C7426-8B49-4260-B740-41E2D09061D7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,10 +19,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{6C972F25-0DC5-44FD-830D-9BE5517D3616}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6C972F25-0DC5-44FD-830D-9BE5517D3616}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6C972F25-0DC5-44FD-830D-9BE5517D3616}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6C972F25-0DC5-44FD-830D-9BE5517D3616}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0DD01CE9-1BC6-4D65-950F-FAACC4F5FB8F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0DD01CE9-1BC6-4D65-950F-FAACC4F5FB8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0DD01CE9-1BC6-4D65-950F-FAACC4F5FB8F}.Release|Any CPU.ActiveCfg = Release|Any CPU

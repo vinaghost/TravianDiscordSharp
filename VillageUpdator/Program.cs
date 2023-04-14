@@ -9,7 +9,7 @@ namespace VillageUpdator
     {
         private static async Task Main(string[] args)
         {
-            var databaseWorlds = await GetWorldsFromDatabase();
+            var databaseWorlds = await MongoHelper.GetWorldCollection();
             await Parallel.ForEachAsync(databaseWorlds, async (world, token) =>
             {
                 var villageLines = await GetMapSql(world.Url);
@@ -23,13 +23,6 @@ namespace VillageUpdator
 
             Console.WriteLine($"Total {databaseWorlds.Count} world updated");
             HttpClientHelper.Dispose();
-        }
-
-        private static async Task<List<World>> GetWorldsFromDatabase()
-        {
-            var client = MongoHelper.GetClient();
-            var collection = client.GetDatabase("TravianWorldDatabase").GetCollection<World>("TravianOfficial");
-            return await collection.AsQueryable().ToListAsync();
         }
 
         private static async Task<string> GetMapSql(string worldUrl)
