@@ -9,6 +9,7 @@ namespace WinFormsApp
     {
         private readonly List<World> worlds = new();
         private readonly List<VillageLite> villages = new();
+        private readonly List<string> allys = new();
 
         public MainForm()
         {
@@ -48,8 +49,16 @@ namespace WinFormsApp
             var world = worlds[WorldSelector.SelectedIndex];
             villages.Clear();
             var databaseVillages = await MongoHelper.GetVillageCollection(world.Url);
-            villages.AddRange(databaseVillages.Select(x => new VillageLite(x.Name, x.PlayerName, x.AllyName, new(x.X, x.Y), x.Pop)).ToList());
-
+            villages.AddRange(databaseVillages.Select(x => new VillageLite(x.Name, x.PlayerName, x.AllyName, new(x.X, x.Y), x.Pop)));
+            allys.Clear();
+            allys.AddRange(databaseVillages.Select(x => x.AllyName).Distinct());
+            allyIgnore.BeginUpdate();
+            allyIgnore.Items.Clear();
+            foreach (var ally in allys)
+            {
+                allyIgnore.Items.Add(ally);
+            }
+            allyIgnore.EndUpdate();
             WorldLoadBtn.Enabled = true;
         }
 
@@ -65,7 +74,9 @@ namespace WinFormsApp
                 village.Distance = coord.Distance(village.Coord);
             });
             villages.Sort();
-            DataGrid.DataSource = villages.ToList();
+
+            var checkedItems = allyIgnore.CheckedItems.Cast<string>().ToList();
+            DataGrid.DataSource = villages.Where(x => !checkedItems.Contains(x.AllyName)).ToList();
         }
     }
 }

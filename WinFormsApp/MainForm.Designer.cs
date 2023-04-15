@@ -34,6 +34,7 @@
             YNumeric = new NumericUpDown();
             ApplyBtn = new Button();
             DataGrid = new DataGridView();
+            allyIgnore = new CheckedListBox();
             ((System.ComponentModel.ISupportInitialize)XNumeric).BeginInit();
             ((System.ComponentModel.ISupportInitialize)YNumeric).BeginInit();
             ((System.ComponentModel.ISupportInitialize)DataGrid).BeginInit();
@@ -42,16 +43,16 @@
             // WorldSelector
             // 
             WorldSelector.FormattingEnabled = true;
-            WorldSelector.Location = new Point(48, 42);
+            WorldSelector.Location = new Point(11, 43);
             WorldSelector.Name = "WorldSelector";
             WorldSelector.Size = new Size(210, 23);
             WorldSelector.TabIndex = 0;
             // 
             // WorldLoadBtn
             // 
-            WorldLoadBtn.Location = new Point(48, 71);
+            WorldLoadBtn.Location = new Point(11, 72);
             WorldLoadBtn.Name = "WorldLoadBtn";
-            WorldLoadBtn.Size = new Size(209, 34);
+            WorldLoadBtn.Size = new Size(210, 34);
             WorldLoadBtn.TabIndex = 1;
             WorldLoadBtn.Text = "Load world";
             WorldLoadBtn.UseVisualStyleBackColor = true;
@@ -59,7 +60,7 @@
             // 
             // XNumeric
             // 
-            XNumeric.Location = new Point(48, 111);
+            XNumeric.Location = new Point(11, 112);
             XNumeric.Maximum = new decimal(new int[] { 400, 0, 0, 0 });
             XNumeric.Minimum = new decimal(new int[] { 400, 0, 0, int.MinValue });
             XNumeric.Name = "XNumeric";
@@ -68,18 +69,18 @@
             // 
             // YNumeric
             // 
-            YNumeric.Location = new Point(163, 111);
+            YNumeric.Location = new Point(127, 112);
             YNumeric.Maximum = new decimal(new int[] { 400, 0, 0, 0 });
             YNumeric.Minimum = new decimal(new int[] { 400, 0, 0, int.MinValue });
             YNumeric.Name = "YNumeric";
-            YNumeric.Size = new Size(95, 23);
+            YNumeric.Size = new Size(94, 23);
             YNumeric.TabIndex = 3;
             // 
             // ApplyBtn
             // 
-            ApplyBtn.Location = new Point(49, 140);
+            ApplyBtn.Location = new Point(11, 404);
             ApplyBtn.Name = "ApplyBtn";
-            ApplyBtn.Size = new Size(209, 34);
+            ApplyBtn.Size = new Size(210, 34);
             ApplyBtn.TabIndex = 4;
             ApplyBtn.Text = "Apply";
             ApplyBtn.UseVisualStyleBackColor = true;
@@ -88,17 +89,26 @@
             // DataGrid
             // 
             DataGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            DataGrid.Location = new Point(344, 21);
+            DataGrid.Location = new Point(227, 12);
             DataGrid.Name = "DataGrid";
             DataGrid.RowTemplate.Height = 25;
-            DataGrid.Size = new Size(409, 392);
+            DataGrid.Size = new Size(561, 426);
             DataGrid.TabIndex = 5;
+            // 
+            // allyIgnore
+            // 
+            allyIgnore.FormattingEnabled = true;
+            allyIgnore.Location = new Point(11, 147);
+            allyIgnore.Name = "allyIgnore";
+            allyIgnore.Size = new Size(210, 256);
+            allyIgnore.TabIndex = 6;
             // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(allyIgnore);
             Controls.Add(DataGrid);
             Controls.Add(ApplyBtn);
             Controls.Add(YNumeric);
@@ -123,5 +133,6 @@
         private NumericUpDown YNumeric;
         private Button ApplyBtn;
         private DataGridView DataGrid;
+        private CheckedListBox allyIgnore;
     }
 }
