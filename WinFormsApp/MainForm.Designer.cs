@@ -43,16 +43,16 @@
             // WorldSelector
             // 
             WorldSelector.FormattingEnabled = true;
-            WorldSelector.Location = new Point(11, 43);
+            WorldSelector.Location = new Point(11, 12);
             WorldSelector.Name = "WorldSelector";
-            WorldSelector.Size = new Size(210, 23);
+            WorldSelector.Size = new Size(211, 23);
             WorldSelector.TabIndex = 0;
             // 
             // WorldLoadBtn
             // 
-            WorldLoadBtn.Location = new Point(11, 72);
+            WorldLoadBtn.Location = new Point(11, 41);
             WorldLoadBtn.Name = "WorldLoadBtn";
-            WorldLoadBtn.Size = new Size(210, 34);
+            WorldLoadBtn.Size = new Size(211, 34);
             WorldLoadBtn.TabIndex = 1;
             WorldLoadBtn.Text = "Load world";
             WorldLoadBtn.UseVisualStyleBackColor = true;
@@ -60,7 +60,7 @@
             // 
             // XNumeric
             // 
-            XNumeric.Location = new Point(11, 112);
+            XNumeric.Location = new Point(11, 81);
             XNumeric.Maximum = new decimal(new int[] { 400, 0, 0, 0 });
             XNumeric.Minimum = new decimal(new int[] { 400, 0, 0, int.MinValue });
             XNumeric.Name = "XNumeric";
@@ -69,7 +69,7 @@
             // 
             // YNumeric
             // 
-            YNumeric.Location = new Point(127, 112);
+            YNumeric.Location = new Point(128, 81);
             YNumeric.Maximum = new decimal(new int[] { 400, 0, 0, 0 });
             YNumeric.Minimum = new decimal(new int[] { 400, 0, 0, int.MinValue });
             YNumeric.Name = "YNumeric";
@@ -98,9 +98,9 @@
             // allyIgnore
             // 
             allyIgnore.FormattingEnabled = true;
-            allyIgnore.Location = new Point(11, 147);
+            allyIgnore.Location = new Point(10, 110);
             allyIgnore.Name = "allyIgnore";
-            allyIgnore.Size = new Size(210, 256);
+            allyIgnore.Size = new Size(211, 292);
             allyIgnore.TabIndex = 6;
             // 
             // MainForm

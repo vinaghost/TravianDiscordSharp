@@ -47,36 +47,42 @@ namespace WinFormsApp
             WorldLoadBtn.Enabled = false;
 
             var world = worlds[WorldSelector.SelectedIndex];
+
             villages.Clear();
             var databaseVillages = await MongoHelper.GetVillageCollection(world.Url);
             villages.AddRange(databaseVillages.Select(x => new VillageLite(x.Name, x.PlayerName, x.AllyName, new(x.X, x.Y), x.Pop)));
+
             allys.Clear();
             allys.AddRange(databaseVillages.Select(x => x.AllyName).Distinct());
-            allyIgnore.BeginUpdate();
+            allyIgnore.BeginUpdate(); // antilag for world has a lot of ally
             allyIgnore.Items.Clear();
             foreach (var ally in allys)
             {
                 allyIgnore.Items.Add(ally);
             }
             allyIgnore.EndUpdate();
+
             WorldLoadBtn.Enabled = true;
         }
 
         private void ApplyBtn_Click(object sender, EventArgs e)
         {
+            var checkedItems = allyIgnore.CheckedItems.Cast<string>().ToList();
+            var filteredVillages = villages.Where(x => !checkedItems.Contains(x.AllyName));
+
             var x = (int)XNumeric.Value;
             var y = (int)YNumeric.Value;
 
             var coord = new Coordinates(x, y);
 
-            Parallel.ForEach(villages, village =>
+            Parallel.ForEach(filteredVillages, village =>
             {
                 village.Distance = coord.Distance(village.Coord);
             });
-            villages.Sort();
 
-            var checkedItems = allyIgnore.CheckedItems.Cast<string>().ToList();
-            DataGrid.DataSource = villages.Where(x => !checkedItems.Contains(x.AllyName)).ToList();
+            villages.Sort();
+            DataGrid.DataSource = filteredVillages.ToList();
         }
+
     }
 }
