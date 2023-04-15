@@ -94,6 +94,7 @@
             DataGrid.RowTemplate.Height = 25;
             DataGrid.Size = new Size(561, 426);
             DataGrid.TabIndex = 5;
+            DataGrid.CellMouseClick += DataGrid_CellMouseClick;
             // 
             // allyIgnore
             // 
