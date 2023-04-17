@@ -23,24 +23,23 @@ namespace MainCore.Parsers
             var villageLine = line.Remove(0, 30);
             villageLine = villageLine.Remove(villageLine.Length - 2, 2);
             var fields = villageLine.ParseLine();
-            return new Village()
-            {
-                MapId = int.Parse(fields[0]),
-                X = int.Parse(fields[1]),
-                Y = int.Parse(fields[2]),
-                Tribe = int.Parse(fields[3]),
-                Id = int.Parse(fields[4]),
-                Name = fields[5],
-                PlayerId = int.Parse(fields[6]),
-                PlayerName = fields[7],
-                AllyId = int.Parse(fields[8]),
-                AllyName = fields[9],
-                Pop = int.Parse(fields[10]),
-                Region = fields[11],
-                IsCapital = fields[12].Equals("TRUE"),
-                IsCity = fields[13].Equals("TRUE"),
-                VictoryPoints = fields[14].Equals("NULL") ? 0 : int.Parse(fields[14]),
-            };
+
+            var MapId = int.Parse(fields[0]);
+            var X = int.Parse(fields[1]);
+            var Y = int.Parse(fields[2]);
+            var Tribe = int.Parse(fields[3]);
+            var Id = int.Parse(fields[4]);
+            var Name = fields[5];
+            var PlayerId = int.Parse(fields[6]);
+            var PlayerName = fields[7];
+            var AllyId = int.Parse(fields[8]);
+            var AllyName = fields[9];
+            var Pop = int.Parse(fields[10]);
+            var Region = fields[11];
+            var IsCapital = fields[12].Equals("TRUE");
+            var IsCity = fields[13].Equals("TRUE");
+            var VictoryPoints = fields[14].Equals("NULL") ? 0 : int.Parse(fields[14]);
+            return new Village(MapId, X, Y, Tribe, Id, Name, PlayerId, PlayerName, AllyId, AllyName, Pop, Region, IsCapital, IsCity, VictoryPoints);
         }
 
         private static string Peek(this string source, int peek) => (source == null || peek < 0) ? null : source.Substring(0, source.Length < peek ? source.Length : peek);

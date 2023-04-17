@@ -1,4 +1,4 @@
-﻿namespace WinFormsApp
+﻿namespace WinFormsApp.Models
 {
     public class Data
     {

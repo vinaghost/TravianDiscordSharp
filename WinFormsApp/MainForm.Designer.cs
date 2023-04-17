@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             WorldSelector = new ComboBox();
             WorldLoadBtn = new Button();
             XNumeric = new NumericUpDown();
@@ -35,9 +36,16 @@
             ApplyBtn = new Button();
             DataGrid = new DataGridView();
             allyIgnore = new CheckedListBox();
+            contextMenu = new ContextMenuStrip(components);
+            checkPlayerToolStripMenuItem = new ToolStripMenuItem();
+            ingorePlayerToolStripMenuItem = new ToolStripMenuItem();
+            ignoreAllyToolStripMenuItem = new ToolStripMenuItem();
+            bindingSource = new BindingSource(components);
             ((System.ComponentModel.ISupportInitialize)XNumeric).BeginInit();
             ((System.ComponentModel.ISupportInitialize)YNumeric).BeginInit();
             ((System.ComponentModel.ISupportInitialize)DataGrid).BeginInit();
+            contextMenu.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)bindingSource).BeginInit();
             SuspendLayout();
             // 
             // WorldSelector
@@ -104,6 +112,34 @@
             allyIgnore.Size = new Size(211, 292);
             allyIgnore.TabIndex = 6;
             // 
+            // contextMenu
+            // 
+            contextMenu.Items.AddRange(new ToolStripItem[] { checkPlayerToolStripMenuItem, ingorePlayerToolStripMenuItem, ignoreAllyToolStripMenuItem });
+            contextMenu.Name = "contextMenuStrip1";
+            contextMenu.RenderMode = ToolStripRenderMode.System;
+            contextMenu.Size = new Size(144, 70);
+            // 
+            // checkPlayerToolStripMenuItem
+            // 
+            checkPlayerToolStripMenuItem.Name = "checkPlayerToolStripMenuItem";
+            checkPlayerToolStripMenuItem.Size = new Size(143, 22);
+            checkPlayerToolStripMenuItem.Text = "Check player";
+            checkPlayerToolStripMenuItem.Click += CheckPlayerToolStripMenuItem_Click;
+            // 
+            // ingorePlayerToolStripMenuItem
+            // 
+            ingorePlayerToolStripMenuItem.Name = "ingorePlayerToolStripMenuItem";
+            ingorePlayerToolStripMenuItem.Size = new Size(143, 22);
+            ingorePlayerToolStripMenuItem.Text = "Ingore player";
+            ingorePlayerToolStripMenuItem.Click += IngorePlayerToolStripMenuItem_Click;
+            // 
+            // ignoreAllyToolStripMenuItem
+            // 
+            ignoreAllyToolStripMenuItem.Name = "ignoreAllyToolStripMenuItem";
+            ignoreAllyToolStripMenuItem.Size = new Size(143, 22);
+            ignoreAllyToolStripMenuItem.Text = "Ignore ally";
+            ignoreAllyToolStripMenuItem.Click += IgnoreAllyToolStripMenuItem_Click;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -123,6 +159,8 @@
             ((System.ComponentModel.ISupportInitialize)XNumeric).EndInit();
             ((System.ComponentModel.ISupportInitialize)YNumeric).EndInit();
             ((System.ComponentModel.ISupportInitialize)DataGrid).EndInit();
+            contextMenu.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)bindingSource).EndInit();
             ResumeLayout(false);
         }
 
@@ -135,5 +173,16 @@
         private Button ApplyBtn;
         private DataGridView DataGrid;
         private CheckedListBox allyIgnore;
+        private ContextMenuStrip contextMenu;
+        private ToolStripMenuItem checkPlayerToolStripMenuItem;
+        private ToolStripMenuItem ingorePlayerToolStripMenuItem;
+        private ToolStripMenuItem ignoreAllyToolStripMenuItem;
+        private BindingSource bindingSource;
+        private DataGridViewTextBoxColumn villageNameDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn playerNameDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn allyNameDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn coordDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn popDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn distanceDataGridViewTextBoxColumn;
     }
 }
