@@ -116,30 +116,24 @@ namespace WinFormsApp
         private void IngorePlayerToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var village = villages.Find(x => x.Id == villageIndex);
-            MessageBox.Show("IngorePlayer");
+
+            var data = bindingSource.DataSource as IEnumerable<VillageDistance>;
+            var filteredData = data.Where(x => x.PlayerId != village.PlayerId);
+
+            bindingSource.DataSource = filteredData;
         }
 
         private void IgnoreAllyToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var village = villages.Find(x => x.Id == villageIndex);
+
             var ally = allys.IndexOf(allys.Find(x => x.Id == village.AllyId));
             allyIgnore.SetItemChecked(ally, true);
 
-            var checkedItems = allyIgnore.CheckedItems.Cast<AllyItem>().Select(x => x.Id).ToList();
-            var filteredVillages = villages.Where(x => !checkedItems.Contains(x.AllyId));
+            var data = bindingSource.DataSource as IEnumerable<VillageDistance>;
+            var filteredData = data.Where(x => x.PlayerId != village.AllyId);
 
-            var x = (int)XNumeric.Value;
-            var y = (int)YNumeric.Value;
-
-            var coord = new Coordinates(x, y);
-
-            Parallel.ForEach(filteredVillages, village =>
-            {
-                village.Distance = coord.Distance(new Coordinates(village.X, village.Y));
-            });
-
-            villages.Sort();
-            bindingSource.DataSource = filteredVillages;
+            bindingSource.DataSource = filteredData;
         }
 
         private void GenerateColumn()
