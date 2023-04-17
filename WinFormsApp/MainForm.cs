@@ -2,7 +2,6 @@ using MainCore.Helper;
 using MainCore.Models;
 using MongoDB.Driver;
 using System.Data;
-using System.Diagnostics;
 using System.Text.Json;
 using WinFormsApp.Models;
 
@@ -73,20 +72,23 @@ namespace WinFormsApp
             WorldLoadBtn.Enabled = true;
         }
 
-        private void ApplyBtn_Click(object sender, EventArgs e)
+        private async void ApplyBtn_Click(object sender, EventArgs e)
         {
+            ApplyBtn.Enabled = false;
             var checkedItems = allyIgnore.CheckedItems.Cast<AllyItem>().Select(x => x.Id).ToList();
             var filteredVillages = villages.Where(x => !checkedItems.Contains(x.AllyId));
 
             var coord = coordinatesUc.Coordinates;
 
-            Parallel.ForEach(filteredVillages, village =>
+            var tasks = new List<Task>();
+            foreach (var village in filteredVillages)
             {
-                village.Distance = coord.Distance(new Coordinates(village.X, village.Y));
-            });
-
+                tasks.Add(Task.Run(() => village.Distance = coord.Distance(new Coordinates(village.X, village.Y))));
+            }
+            await Task.WhenAll(tasks);
             villages.Sort();
             bindingSource.DataSource = filteredVillages;
+            ApplyBtn.Enabled = true;
         }
 
         private void DataGrid_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
@@ -95,7 +97,7 @@ namespace WinFormsApp
             if (e.RowIndex < 0 || e.ColumnIndex < 0) return;
             var dataGridView = (sender as DataGridView);
             var r = dataGridView.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, false);
-            var p = new Point(r.X + r.Width, r.Y + r.Height);
+            var p = new Point(r.X + r.Width / 2, r.Y + r.Height);
 
             var data = bindingSource.DataSource as IEnumerable<VillageDistance>;
             villageIndex = data.ElementAt(e.RowIndex).Id;
@@ -104,11 +106,12 @@ namespace WinFormsApp
 
         private void CheckPlayerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var stopWatch = new Stopwatch();
-            stopWatch.Start();
             var village = villages.Find(x => x.Id == villageIndex);
-            stopWatch.Stop();
-            MessageBox.Show($"Found {village.Name} in {stopWatch.ElapsedMilliseconds}ms");
+
+            var playerVillages = villages.Where(x => x.PlayerId == village.PlayerId).ToList();
+
+            using var playerForm = new PlayerForm(village.PlayerName, village.AllyName, playerVillages);
+            playerForm.ShowDialog();
         }
 
         private void IngorePlayerToolStripMenuItem_Click(object sender, EventArgs e)
@@ -116,7 +119,7 @@ namespace WinFormsApp
             var village = villages.Find(x => x.Id == villageIndex);
 
             var data = bindingSource.DataSource as IEnumerable<VillageDistance>;
-            var filteredData = data.Where(x => x.PlayerId != village.PlayerId);
+            var filteredData = data.Where(x => x.PlayerId != village.PlayerId).ToList();
 
             bindingSource.DataSource = filteredData;
         }
@@ -129,7 +132,7 @@ namespace WinFormsApp
             allyIgnore.SetItemChecked(ally, true);
 
             var data = bindingSource.DataSource as IEnumerable<VillageDistance>;
-            var filteredData = data.Where(x => x.PlayerId != village.AllyId);
+            var filteredData = data.Where(x => x.AllyId != village.AllyId).ToList();
 
             bindingSource.DataSource = filteredData;
         }
