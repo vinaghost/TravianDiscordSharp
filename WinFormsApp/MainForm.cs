@@ -33,8 +33,8 @@ namespace WinFormsApp
                 var json = File.ReadAllText("data.json");
                 var data = JsonSerializer.Deserialize<Data>(json);
                 WorldSelector.SelectedIndex = data.WorldId;
-                XNumeric.Value = data.X;
-                YNumeric.Value = data.Y;
+
+                coordinatesUc.SetValue(data.X, data.Y);
             }
             else
             {
@@ -44,7 +44,8 @@ namespace WinFormsApp
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            var data = new Data(WorldSelector.SelectedIndex, (int)XNumeric.Value, (int)YNumeric.Value);
+            var coordinate = coordinatesUc.Coordinates;
+            var data = new Data(WorldSelector.SelectedIndex, coordinate.X, coordinate.Y);
             var json = JsonSerializer.Serialize(data);
             File.WriteAllText("data.json", json);
         }
@@ -77,10 +78,7 @@ namespace WinFormsApp
             var checkedItems = allyIgnore.CheckedItems.Cast<AllyItem>().Select(x => x.Id).ToList();
             var filteredVillages = villages.Where(x => !checkedItems.Contains(x.AllyId));
 
-            var x = (int)XNumeric.Value;
-            var y = (int)YNumeric.Value;
-
-            var coord = new Coordinates(x, y);
+            var coord = coordinatesUc.Coordinates;
 
             Parallel.ForEach(filteredVillages, village =>
             {
