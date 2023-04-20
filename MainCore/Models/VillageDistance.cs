@@ -6,7 +6,11 @@
         {
         }
 
-        public Coordinates Coordinates { get => new(X, Y); }
+        public VillageDistance(Village village, double distance) : this(village)
+        {
+            Distance = distance;
+        }
+
         public double Distance { get; set; }
 
         public int CompareTo(VillageDistance other)
