@@ -32,10 +32,12 @@ jobs:
         run: |
           dotnet publish WorldUpdator -c Release -p:PublishSingleFile=true -o WorldUpdatorPublish
           dotnet publish VillageUpdator -c Release -p:PublishSingleFile=true -o VillagedUpdatorPublish
+          dotnet publish AspNetApi -c Release -p:PublishSingleFile=true -o AspNetApiPublish
       - name: Archive
         run: |
           tar czvf "WorldUpdator.tar.gz" "WorldUpdatorPublish"
           tar czvf "VillageUpdator.tar.gz" "VillagedUpdatorPublish"
+          tar czvf "AspNetApi.tar.gz" "AspNetApiPublish"
       - uses: ncipollo/release-action@v1
         with:
-          artifacts: "WorldUpdator.tar.gz,VillageUpdator.tar.gz"
+          artifacts: "WorldUpdator.tar.gz,VillageUpdator.tar.gz,AspNetApi.tar.gz"

@@ -4,7 +4,19 @@
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
-
+  <Choose>
+    <When Condition="$(RuntimeIdentifier) != ''">
+      <PropertyGroup>
+        <NuGetLockFilePath>no.lock.file</NuGetLockFilePath>
+        <RestorePackagesWithLockFile>false</RestorePackagesWithLockFile>
+      </PropertyGroup>
+    </When>
+    <Otherwise>
+      <PropertyGroup>
+        <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+      </PropertyGroup>
+    </Otherwise>
+  </Choose>
   <ItemGroup>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
   </ItemGroup>
