@@ -17,6 +17,10 @@ namespace AspNetApi
             builder.Services.AddSwaggerGen();
 
             builder.Services.AddSingleton<IMongoDbService, MongoDbService>();
+            builder.Services.AddSingleton<IWorldService, WorldService>();
+            builder.Services.AddSingleton<IVillageService, VillageService>();
+            builder.Services.AddSingleton<IPlayerService, PlayerService>();
+            builder.Services.AddSingleton<IAllianceService, AllianceService>();
 
             var app = builder.Build();
 

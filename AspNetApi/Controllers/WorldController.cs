@@ -1,7 +1,6 @@
 ﻿using AspNetApi.Services.Interface;
 using MainCore.Models;
 using Microsoft.AspNetCore.Mvc;
-using MongoDB.Driver;
 
 namespace AspNetApi.Controllers
 {
@@ -9,21 +8,21 @@ namespace AspNetApi.Controllers
     [Route("[controller]")]
     public class WorldController : ControllerBase
     {
+        private readonly IWorldService _worldService;
         private readonly ILogger<WorldController> _logger;
-        private readonly IMongoDbService _mongoDbService;
 
-        public WorldController(ILogger<WorldController> logger, IMongoDbService mongoDbService)
+        public WorldController(ILogger<WorldController> logger, IWorldService worldService)
         {
             _logger = logger;
-            _mongoDbService = mongoDbService;
+            _worldService = worldService;
         }
 
         [HttpGet]
-        public IEnumerable<World> Get()
+        [Produces("application/json")]
+        [ProducesResponseType(typeof(IEnumerable<World>), 200)]
+        public IActionResult Get()
         {
-            var collection = _mongoDbService.GetWorlds();
-            var filter = Builders<World>.Filter.Empty;
-            return collection.Find(filter).ToEnumerable();
+            return Ok(_worldService.GetWorlds());
         }
     }
 }

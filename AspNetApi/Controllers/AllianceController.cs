@@ -1,7 +1,6 @@
 ﻿using AspNetApi.Services.Interface;
 using MainCore.Models;
 using Microsoft.AspNetCore.Mvc;
-using MongoDB.Driver;
 
 namespace AspNetApi.Controllers
 {
@@ -10,12 +9,14 @@ namespace AspNetApi.Controllers
     public class AllianceController : ControllerBase
     {
         private readonly ILogger<AllianceController> _logger;
-        private readonly IMongoDbService _mongoDbService;
+        private readonly IAllianceService _allianceService;
+        private readonly IWorldService _worldService;
 
-        public AllianceController(ILogger<AllianceController> logger, IMongoDbService mongoDbService)
+        public AllianceController(ILogger<AllianceController> logger, IWorldService worldService, IAllianceService allianceService)
         {
             _logger = logger;
-            _mongoDbService = mongoDbService;
+            _worldService = worldService;
+            _allianceService = allianceService;
         }
 
         [HttpGet("{world}")]
@@ -23,10 +24,9 @@ namespace AspNetApi.Controllers
         [ProducesResponseType(typeof(IEnumerable<TravianObject>), 200)]
         public IActionResult Get(string world)
         {
-            var collection = _mongoDbService.GetVillages(world);
-            var travianObjects = collection.AsQueryable().Select(x => new TravianObject(x.AllyId, x.AllyName)).ToArray();
-            var result = travianObjects.DistinctBy(x => x.Id).OrderBy(x => x.Name).ToArray();
-            return Ok(result);
+            if (!_worldService.IsVaild(world)) return Ok(new List<TravianObject>());
+
+            return Ok(_allianceService.GetAlliances(world));
         }
     }
 }

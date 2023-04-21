@@ -1,8 +1,6 @@
 ﻿using AspNetApi.Services.Interface;
 using MainCore.Models;
 using Microsoft.AspNetCore.Mvc;
-using MongoDB.Driver;
-using MongoDB.Driver.Linq;
 
 namespace AspNetApi.Controllers
 {
@@ -11,12 +9,14 @@ namespace AspNetApi.Controllers
     public class PlayerController : ControllerBase
     {
         private readonly ILogger<PlayerController> _logger;
-        private readonly IMongoDbService _mongoDbService;
+        private readonly IWorldService _worldService;
+        private readonly IPlayerService _playerService;
 
-        public PlayerController(ILogger<PlayerController> logger, IMongoDbService mongoDbService)
+        public PlayerController(ILogger<PlayerController> logger, IPlayerService playerService, IWorldService worldService)
         {
             _logger = logger;
-            _mongoDbService = mongoDbService;
+            _playerService = playerService;
+            _worldService = worldService;
         }
 
         [HttpGet("{world}")]
@@ -24,10 +24,8 @@ namespace AspNetApi.Controllers
         [ProducesResponseType(typeof(IEnumerable<TravianObject>), 200)]
         public IActionResult Get(string world)
         {
-            var collection = _mongoDbService.GetVillages(world);
-            var travianObjects = collection.AsQueryable().Select(x => new TravianObject(x.PlayerId, x.PlayerName)).ToArray();
-            var result = travianObjects.DistinctBy(x => x.Id).OrderBy(x => x.Name).ToArray();
-            return Ok(result);
+            if (!_worldService.IsVaild(world)) return Ok(new List<TravianObject>());
+            return Ok(_playerService.GetPlayers(world));
         }
 
         [HttpGet("{world}/{id}")]
@@ -35,9 +33,8 @@ namespace AspNetApi.Controllers
         [ProducesResponseType(typeof(IEnumerable<Village>), 200)]
         public IActionResult Get(string world, int id)
         {
-            var collection = _mongoDbService.GetVillages(world);
-            var filter = Builders<Village>.Filter.Where(x => x.PlayerId == id);
-            return Ok(collection.Find(filter).ToEnumerable());
+            if (!_worldService.IsVaild(world)) return Ok(new List<Village>());
+            return Ok(_playerService.GetVillages(world, id));
         }
     }
 }
