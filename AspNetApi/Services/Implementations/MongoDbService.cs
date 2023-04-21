@@ -1,4 +1,5 @@
 ﻿using AspNetApi.Services.Interface;
+using MainCore.Helper;
 using MainCore.Models;
 using MongoDB.Driver;
 
@@ -14,7 +15,7 @@ namespace AspNetApi.Services.Implementations
 
         public MongoDbService()
         {
-            var connectionString = Environment.GetEnvironmentVariable("MONGODB_URI");
+            var connectionString = EnvVarHelper.MogoDbConnection;
             _mongoClient = new MongoClient(connectionString);
         }
 

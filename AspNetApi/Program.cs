@@ -1,5 +1,6 @@
 using AspNetApi.Services.Implementations;
 using AspNetApi.Services.Interface;
+using DotNetEnv;
 
 namespace AspNetApi
 {
@@ -10,7 +11,6 @@ namespace AspNetApi
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
@@ -23,6 +23,7 @@ namespace AspNetApi
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
+                Env.Load();
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
