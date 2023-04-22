@@ -25,7 +25,7 @@ namespace AspNetApi.Controllers
         public IActionResult Get(string world)
         {
             if (!_worldService.IsVaild(world)) return Ok(new List<TravianObject>());
-            return Ok(_playerService.GetPlayers(world));
+            return Ok(_playerService.Get(world));
         }
 
         [HttpGet("{world}/{id}")]

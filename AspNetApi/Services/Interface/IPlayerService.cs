@@ -4,7 +4,7 @@ namespace AspNetApi.Services.Interface
 {
     public interface IPlayerService
     {
-        IEnumerable<TravianObject> GetPlayers(string world);
+        IEnumerable<TravianObject> Get(string world);
 
         IEnumerable<Village> GetVillages(string world, int id);
     }

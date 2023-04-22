@@ -4,6 +4,8 @@ namespace AspNetApi.Services.Interface
 {
     public interface IAllianceService
     {
-        IEnumerable<TravianObject> GetAlliances(string world);
+        IEnumerable<TravianObject> Get(string world);
+
+        IEnumerable<Village> GetVillages(string world, int id);
     }
 }

@@ -26,7 +26,16 @@ namespace AspNetApi.Controllers
         {
             if (!_worldService.IsVaild(world)) return Ok(new List<TravianObject>());
 
-            return Ok(_allianceService.GetAlliances(world));
+            return Ok(_allianceService.Get(world));
+        }
+
+        [HttpGet("{world}/{id}")]
+        [Produces("application/json")]
+        [ProducesResponseType(typeof(IEnumerable<Village>), 200)]
+        public IActionResult Get(string world, int id)
+        {
+            if (!_worldService.IsVaild(world)) return Ok(new List<Village>());
+            return Ok(_allianceService.GetVillages(world, id));
         }
     }
 }

@@ -13,7 +13,7 @@ namespace AspNetApi.Services.Implementations
             _mongoDbService = mongoDbService;
         }
 
-        public IEnumerable<TravianObject> GetPlayers(string world)
+        public IEnumerable<TravianObject> Get(string world)
         {
             var collection = _mongoDbService.GetVillages(world);
             var travianObjects = collection.AsQueryable().Select(x => new TravianObject(x.PlayerId, x.PlayerName)).ToArray();
