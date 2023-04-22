@@ -25,7 +25,7 @@ namespace AspNetApi.Services.Implementations
         {
             var collection = _mongoDbService.GetVillages(world);
             var filter = Builders<Village>.Filter.Where(x => x.PlayerId == id);
-            return collection.Find(filter).SortBy(x => x.Pop).ToEnumerable();
+            return collection.Find(filter).SortByDescending(x => x.Pop).ToEnumerable();
         }
     }
 }
