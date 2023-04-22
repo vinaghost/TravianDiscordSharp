@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VillageUpdator", "VillageUp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WinFormsApp", "WinFormsApp\WinFormsApp.csproj", "{C61C7426-8B49-4260-B740-41E2D09061D7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNetApi", "AspNetApi\AspNetApi.csproj", "{6CE05DC1-F9A3-4409-A802-4C1E6401871D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNetApi", "AspNetApi\AspNetApi.csproj", "{6CE05DC1-F9A3-4409-A802-4C1E6401871D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
