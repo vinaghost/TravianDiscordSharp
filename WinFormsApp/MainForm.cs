@@ -1,17 +1,17 @@
-using MainCore.Helper;
 using MainCore.Models;
 using MongoDB.Driver;
 using System.Data;
 using System.Text.Json;
+using WinFormsApp.Helper;
 using WinFormsApp.Models;
 
 namespace WinFormsApp
 {
     public partial class MainForm : Form
     {
-        private readonly List<World> worlds = new();
-        private readonly List<VillageDistance> villages = new();
-        private readonly List<AllyItem> allys = new();
+        private readonly List<World> _worlds = new();
+        private readonly List<VillageDistance> _villages = new();
+        private readonly List<AllyItem> _allys = new();
 
         private int villageIndex = -1;
 
@@ -24,8 +24,9 @@ namespace WinFormsApp
 
         private async void MainForm_Load(object sender, EventArgs e)
         {
-            var databaseWorlds = await MongoHelper.GetWorldCollection();
-            worlds.AddRange(databaseWorlds);
+            ApiHelper.InitHttpClient();
+            var databaseWorlds = await ApiHelper.GetWorlds();
+            _worlds.AddRange(databaseWorlds);
             WorldSelector.DataSource = databaseWorlds.Select(x => x.Url).ToList();
             if (File.Exists("data.json"))
             {
@@ -43,6 +44,7 @@ namespace WinFormsApp
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
+            ApiHelper.Dispose();
             var coordinate = coordinatesUc.Coordinates;
             var data = new Data(WorldSelector.SelectedIndex, coordinate.X, coordinate.Y);
             var json = JsonSerializer.Serialize(data);
@@ -53,17 +55,14 @@ namespace WinFormsApp
         {
             WorldLoadBtn.Enabled = false;
 
-            var world = worlds[WorldSelector.SelectedIndex];
+            var world = _worlds[WorldSelector.SelectedIndex];
+            var allyAPI = await ApiHelper.GetAlliances(world.Url);
+            _allys.Clear();
+            _allys.AddRange(allyAPI.Select(x => new AllyItem(x.Id, x.Name)));
 
-            villages.Clear();
-            var databaseVillages = await MongoHelper.GetVillageCollection(world.Url);
-            villages.AddRange(databaseVillages.Select(x => new VillageDistance(x)));
-
-            allys.Clear();
-            allys.AddRange(databaseVillages.DistinctBy(x => x.AllyId).Select(x => new AllyItem(x.AllyId, x.AllyName)));
             allyIgnore.BeginUpdate(); // antilag for world has a lot of ally
             allyIgnore.Items.Clear();
-            foreach (var ally in allys)
+            foreach (var ally in _allys)
             {
                 allyIgnore.Items.Add(ally);
             }
@@ -76,17 +75,14 @@ namespace WinFormsApp
         {
             ApplyBtn.Enabled = false;
             var checkedItems = allyIgnore.CheckedItems.Cast<AllyItem>().Select(x => x.Id).ToList();
-            var filteredVillages = villages.Where(x => !checkedItems.Contains(x.AllyId));
 
             var coord = coordinatesUc.Coordinates;
+            var villagesAPI = await ApiHelper.GetDistanceVillages(_worlds[WorldSelector.SelectedIndex].Url, coord.X, coord.Y);
 
-            var tasks = new List<Task>();
-            foreach (var village in filteredVillages)
-            {
-                tasks.Add(Task.Run(() => village.Distance = coord.Distance(new Coordinates(village.X, village.Y))));
-            }
-            await Task.WhenAll(tasks);
-            villages.Sort();
+            _villages.Clear();
+            _villages.AddRange(villagesAPI);
+            var filteredVillages = _villages.Where(x => !checkedItems.Contains(x.AllyId));
+
             bindingSource.DataSource = filteredVillages;
             ApplyBtn.Enabled = true;
         }
@@ -104,11 +100,11 @@ namespace WinFormsApp
             contextMenu.Show(DataGrid, p);
         }
 
-        private void CheckPlayerToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void CheckPlayerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var village = villages.Find(x => x.Id == villageIndex);
+            var village = _villages.Find(x => x.Id == villageIndex);
 
-            var playerVillages = villages.Where(x => x.PlayerId == village.PlayerId).ToList();
+            var playerVillages = await ApiHelper.GetPlayerVillages(_worlds[WorldSelector.SelectedIndex].Url, village.PlayerId);
 
             using var playerForm = new PlayerForm(village.PlayerName, village.AllyName, playerVillages);
             playerForm.ShowDialog();
@@ -116,7 +112,7 @@ namespace WinFormsApp
 
         private void IngorePlayerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var village = villages.Find(x => x.Id == villageIndex);
+            var village = _villages.Find(x => x.Id == villageIndex);
 
             var data = bindingSource.DataSource as IEnumerable<VillageDistance>;
             var filteredData = data.Where(x => x.PlayerId != village.PlayerId).ToList();
@@ -126,9 +122,9 @@ namespace WinFormsApp
 
         private void IgnoreAllyToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var village = villages.Find(x => x.Id == villageIndex);
+            var village = _villages.Find(x => x.Id == villageIndex);
 
-            var ally = allys.IndexOf(allys.Find(x => x.Id == village.AllyId));
+            var ally = _allys.IndexOf(_allys.Find(x => x.Id == village.AllyId));
             allyIgnore.SetItemChecked(ally, true);
 
             var data = bindingSource.DataSource as IEnumerable<VillageDistance>;

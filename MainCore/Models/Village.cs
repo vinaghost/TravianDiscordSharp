@@ -1,7 +1,13 @@
-﻿namespace MainCore.Models
+﻿using System.Text.Json.Serialization;
+
+namespace MainCore.Models
 {
     public class Village
     {
+        public Village()
+        {
+        }
+
         public Village(int mapId, int x, int y, int tribe, int id, string name, int playerId, string playerName, int allyId, string allyName, int pop, string region, bool isCapital, bool isCity, int victoryPoints)
         {
             MapId = mapId;
@@ -36,5 +42,8 @@
         public bool IsCapital { get; set; }
         public bool IsCity { get; set; }
         public int VictoryPoints { get; set; }
+
+        [JsonIgnore]
+        public Coordinates Coordinates { get => new(X, Y); }
     }
 }

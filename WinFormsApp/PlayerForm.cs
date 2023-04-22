@@ -4,7 +4,7 @@ namespace WinFormsApp
 {
     public partial class PlayerForm : Form
     {
-        public PlayerForm(string playerName, string playerAlly, List<VillageDistance> villages)
+        public PlayerForm(string playerName, string playerAlly, List<Village> villages)
         {
             InitializeComponent();
             GenerateColumn();

@@ -2,6 +2,10 @@
 {
     public class VillageDistance : Village, IComparable<VillageDistance>
     {
+        public VillageDistance()
+        {
+        }
+
         public VillageDistance(Village village) : base(village.MapId, village.X, village.Y, village.Tribe, village.Id, village.Name, village.PlayerId, village.PlayerName, village.AllyId, village.AllyName, village.Pop, village.Region, village.IsCapital, village.IsCity, village.VictoryPoints)
         {
         }
